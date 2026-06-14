@@ -1,12 +1,12 @@
 # Overview
 
-An analysis of the data job market, focusing on data analyst roles. The project looks at the different top-paying and in-demand skills to help find optimal job opportunities for data analysts.
+An analysis of the data job market in the United Kingdom, focusing on data analyst roles. The project looks at the different top-paying and in-demand skills to help find optimal job opportunities for data analysts.
 
 The data contains detailed information on job titles, salaries, locations, and essential skills. Through a series of Python scripts, I explore key questions such as the most demanded skills, salary trends, and the intersection of demand and salary in data analytics.
 
 The Questions
 
-1. What are the skills most in demand for the top 3 most popular data roles?
+1. What are the skills most in demand for the top 3 most popular data roles in the UK?
 2. How are in-demand skills trending for Data Analysts?
 3. How well do jobs and skills pay for Data Analysts?
 4. What are the optimal skills for data analysts to learn? (High Demand AND High Paying)
@@ -26,6 +26,25 @@ Jupyter Notebooks: The tool I used to run my Python scripts which let me easily 
 Visual Studio Code IDE
 
 Git & GitHub: Essential for version control and sharing my Python code and analysis, ensuring collaboration and project tracking.
+
+# Import & Clean Up Data
+
+``` Python
+# Importing Libraries
+import ast
+import pandas as pd
+import seaborn as sns
+from datasets import load_dataset
+import matplotlib.pyplot as plt  
+
+# Loading Data
+dataset = load_dataset('lukebarousse/data_jobs')
+df = dataset['train'].to_pandas()
+
+# Data Cleanup
+df['job_posted_date'] = pd.to_datetime(df['job_posted_date'])
+df['job_skills'] = df['job_skills'].apply(lambda x: ast.literal_eval(x) if pd.notna(x) else x)
+```
 
 
 # The Analysis
@@ -72,7 +91,7 @@ fig.tight_layout(h_pad=0.5)
 plt.show()
 ```
 ### Results
-![Visualization of top skills](2_PROJECT\Images\skills_demand_all_roles.png)
+![Visualization of top skills](2_PROJECT/Images/skills_demand_all_roles.png)
 
 ### Insights
 Based on the visualization showing skill percentages for UK data roles, here are the Key insights:
@@ -111,7 +130,7 @@ plt.legend(title='Skills', bbox_to_anchor=(1.05, 1), loc='upper left')  # Put le
 plt.tight_layout()
 plt.show()
 ```
-![Trending top skills for Data Analysts in the UK](2_PROJECT\Images\skills_trend_data_analysts_UK.png)
+![Trending top skills for Data Analysts in the UK](2_PROJECT/Images/skills_trend_data_analysts_UK.png)
 
 ### Insights
 •	SQL and Excel are consistently the most in-demand skills (40-55% range)
@@ -156,7 +175,7 @@ plt.gca().xaxis.set_major_formatter(ticks_x)
 plt.show()
 ```
 
-![Salary distribution of jobs in the UK](2_PROJECT\Images\skills_trend_data_analysts_UK.png)
+![Salary distribution of jobs in the UK](2_PROJECT/Images/Salary%20distribution%20data%20jobs.png)
 
 
 ### Insights
@@ -208,7 +227,7 @@ sns.set_theme(style='ticks')
 plt.tight_layout()
 plt.show()
 ```
-![Highest Paid skills for data analysts](2_PROJECT\Images\skills_trend_data_analysts_UK.png)
+![Highest Paid skills for data analysts](2_PROJECT/Images/Highest%20Paid%20Skills%20for%20data%20analysts_UK.png)
 
 ### Insights
 
